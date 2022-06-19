@@ -154,6 +154,23 @@ module Binance
         )
       end
 
+      def klines_for_period(symbol:, interval:, start_time:, end_time:, **kwargs)
+        Binance::Utils::Validation.require_param('symbol', symbol)
+        Binance::Utils::Validation.require_param('interval', interval)
+        Binance::Utils::Validation.require_param('start_time', start_time)
+        Binance::Utils::Validation.require_param('end_time', end_time)
+
+        @session.public_request(
+            path: '/api/v3/klines',
+            params: kwargs.merge(
+                symbol: symbol,
+                interval: interval,
+                startTime: start_time,
+                endTime: end_time
+            )
+        )
+      end
+
       # Current Average Price
       #
       # Current average price for a symbol.
